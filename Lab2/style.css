@@ -1,22 +1,68 @@
-#slider {
+body {
+    margin: 30px;
+    font-family: monospace;
+}
+ .slider {
     width: 600px;
+    max-width: 100vw;
     height: 400px;
-    margin: 100px auto 0 auto;
+    margin: auto;
+    position: relative;   
     overflow: hidden;
 }
-#slider .slides {
+.list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
     display: flex;
-    animation-name: pociag-w-lewo;
-    animation-duration: 4s;
-    animation-delay: 1s;
-    animation-timing-function: ease-in-out;
+    width: max-content;
+    transition: 1s;
 }
-
-@keyframes pociag-w-lewo {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-2000px);
-    }
+.list img {
+    width: 600px;
+    max-width: 100vw;
+    height: 100%;
+    object-fit: cover;
 }
+.buttons {
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+.buttons button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #fff5;
+    color: black;
+    border: none;
+    font-family: monospace;
+    font-weight: bold;
+}
+.dots {
+    position: absolute;
+    bottom: 10px;
+    color:black;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+.dots li {
+    list-style: none;
+    width: 10px;
+    height: 10px;
+    background-color:black;
+    margin: 20px;
+    border-radius: 20px;
+    transition: 1s;
+}
+.dots li.active {
+    width: 30px;
+} 

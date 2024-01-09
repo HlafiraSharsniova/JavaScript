@@ -4,26 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Slider</title>
     <link rel="stylesheet" href="style.css">
-    <button id="next">dalej</button>
-    <button id="previous">wstecz</button>
 </head>
 
 <body>
-    <div id="slider">
-        <div class="slides">
-        	<img src="http://static-cse.canva.com/blob/846923/photo1502082553048f009c37129b9e1583341920812.jpeg" alt="">
-        	<img src="http://static-cse.canva.com/blob/846923/photo1502082553048f009c37129b9e1583341920812.jpeg" alt="">
-        	<img src="http://static-cse.canva.com/blob/846923/photo1502082553048f009c37129b9e1583341920812.jpeg" alt="">
-        	<img src="http://static-cse.canva.com/blob/846923/photo1502082553048f009c37129b9e1583341920812.jpeg" alt="">
-        	<img src="http://static-cse.canva.com/blob/846923/photo1502082553048f009c37129b9e1583341920812.jpeg" alt="">
-        	<img src="http://static-cse.canva.com/blob/846923/photo1502082553048f009c37129b9e1583341920812.jpeg" alt="">
-            
+        <div class="slider">
+            <div class="list">
+                <div class="item">
+                    <img src="img/1.jpg">
+                </div>
+                <div class="item">
+                    <img src="img/2.jpg">
+                </div>
+                <div class="item">
+                    <img src="img/3.jpg">
+                </div>
+                <div class="item">
+                    <img src="img/4.jpg">
+                </div>
+                <div class="item">
+                    <img src="img/5.jpg">
+                </div>
+                <div class="item">
+                    <img src="img/6.jpg">
+                </div>
+            </div>
+            <!-- кнопка вперед и назад -->
+            <div class="buttons">
+                <button id="prev"><</button>
+                <button id="next">></button>
+            </div>
+            <ul class="dots">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
         </div>
-    </div>
-    <main>
-    </main>
+        
     <script src="main.js"></script>
 </body>
 

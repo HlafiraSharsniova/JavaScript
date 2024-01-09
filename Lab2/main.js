@@ -1,21 +1,43 @@
-const main = document.querySelector('main')
-const slides = document.querySelector('.slides')
+const list = document.querySelector('.slider .list');
+const items = document.querySelectorAll('.slider .list .item');
+const dots = document.querySelectorAll('.slider .dots li');
+const prev = document.getElementById('prev');
+const next = document.getElementById('next');
+ 
+let active = 0;
+let lengthItems = items.length - 1;
 
-// jednorazowe wykonanie kodu po określonym czasie
-const timeoutRef = setTimeout(
-    () => {
-        slides.style.transform = 'translate(-100px)'
-        slides.classList.add('slide2')
-        main.innerHTML = 'Msg from setTimeout'
-    },
-    2000
-)
+next.onclick = function(){
+    if(active + 1 > lengthItems){
+        active = 0;
+    }else{
+        active = active + 1;
+    }
+    reloadSlider();
+}
+prev.onclick = function(){
+    if(active - 1 < 0){
+        active = lengthItems;
+    }else{
+        active = active - 1;
+    }
+    reloadSlider();
+}
+let refreshSlider = setInterval(() => {next.click()}, 5000);
+function reloadSlider(){
+    let checkLeft = items[active].offsetLeft;
+    list.style.left = -checkLeft + 'px';
 
-// wykonywanie kodu co określony czas
-let licznik = 0
-const intervalRef = setInterval(
-    () => {
-        main.innerHTML = `Msg from setInterval: ${licznik++}`
-    },
-    4000
-)
+    let lastActiveDot = document.querySelector('.slider .dots li.active');
+    lastActiveDot.classList.remove('active');
+    dots[active].classList.add('active');
+    clearInterval(refreshSlider);
+    refreshSlider = setInterval(() => {next.click()}, 5000);
+}
+
+dots.forEach((li, key) => {
+    li.addEventListener('click', function(){
+        active = key;
+        reloadSlider();
+    })
+})
