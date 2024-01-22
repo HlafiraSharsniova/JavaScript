@@ -21,7 +21,6 @@ function createNote(title, text) {
 
   const editBtn = noteEl.querySelector('.note-edit');
   const deleteBtn = noteEl.querySelector('.note-delete');
-  const colorBtn = noteEl.querySelector('.note-color');
   const titleEl = noteEl.querySelector('#note-title');
   const textEl = noteEl.querySelector('#note-text');
   const titleInputEl = noteEl.querySelector('#note-title-input');
@@ -39,9 +38,12 @@ function createNote(title, text) {
     noteEl.remove();
   });
   
-  colorBtn.addEventListener('click', (e) => {
-    noteEl.changeColor('red');
-  });
+  // let colorBtn = noteEl.getElementById('.note-color');
+  // let colorValue = colorBtn.value;
+
+  // colorBtn.addEventListener("input", () => {
+  //   noteEl.getElementById("edit-note").style.background = colorBtn.value;
+  // });
 
   titleInputEl.addEventListener('input', (e) => {
     titleEl.innerText = e.target.value;
