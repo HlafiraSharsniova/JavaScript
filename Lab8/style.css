@@ -7,7 +7,7 @@
 
 body {
     height: 100vh;
-    background: linear-gradient(45deg, #5f2c82, #49a09d);
+    background: rgb(222, 222, 146);
 }
 
 .search-container {
@@ -15,8 +15,8 @@ body {
     margin: auto;
     text-align: center;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 10px #363636;
+    background: rgba(219, 193, 193, 0.3);
+    box-shadow: 0 0 10px #3c3636;
 }
 
 #city {
@@ -24,7 +24,7 @@ body {
     padding: 10px;
     background: none;
     border: none;
-    color: #ddd;
+    color: #171616;
     font-size: 20px;
     border-bottom: 1px solid #363636;
     text-shadow: 2px 2px 3px #363636;
@@ -37,14 +37,14 @@ body {
     margin-left: 10px;
     background: none;
     border: 1px solid #363636;
-    color: #ddd;
+    color: #141414;
     text-shadow: 2px 2px 3px #363636;
 
 }
 
 #search-btn:hover,
 #city-add:hover {
-    background: linear-gradient(45deg, #5f2c82, #49a09d);
+    background: rgb(222, 222, 146);
     cursor: pointer;
 }
 
