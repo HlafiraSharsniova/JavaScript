@@ -3,26 +3,83 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
     rel="stylesheet"
   />
-    <title>Notekeep</title>
+  <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+  rel="stylesheet"
+/>
   </head>
   <body>
     <div class="container">
       <div class="header">
-        <h1>Notes</h1>
-        <button class="note-add" type="button"><i class="fa-solid fa-plus"></i></button>
+        <span><h1>Notes</h1></span>
+        <button class="add-note">+</button>
       </div>
-      <div class="notes"></div>
+      <div class="note-search">
+        <input type="text" placeholder="Search note" />
+      </div>
+      <div class="notes-list"></div>
+
+      <div class="form hidden">
+        <form>
+          <div class="header"><h1>New note</h1></div>
+        <div class="content">
+          <div class="row">
+            <label>Title</label>
+            <input type="text" name="title" placeholder="Content" />
+          </div>
+          <div class="row">
+            <label>Content</label>
+            <textarea></textarea>
+          </div>
+          <div class="row">
+            <label>Tag</label>
+            <input type="text" name="tags" placeholder="Podaj tag po spacji" />
+          </div>
+          <div class="row">
+            Wybierz kolor: <input type="color" value="#ffffff" />
+          </div>
+          <div class="row">
+            <button id="submit" class="add-note">Add note</button>
+          </div>
+        </div>
+        </form>
+      </div>
+
+      <div class="edit-form hidden">
+        <form>
+          <div class="header"><h1>Edit</h1></div>
+          <div class="content">
+            <div class="row">
+              <label>Title</label>
+              <input type="text" name="title" placeholder="Title" />
+            </div>
+            <div class="row">
+              <label>Content</label>
+              <textarea></textarea>
+            </div>
+            <div class="row">
+              <label>Tag</label>
+              <input type="text" name="tags" placeholder="Podaj tag po spacji" />
+            </div>
+            <div class="row">
+              Wybierz kolor: <input type="color" value="#ffffff" />
+            </div>
+            <div class="row">
+              <button class="edit-note">Edit</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+    <div class="edit-overlay hidden"></div>
+    <div class="overlay hidden"></div>
+
     <script src="main.js"></script>
   </body>
 </html>
