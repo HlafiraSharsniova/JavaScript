@@ -1,185 +1,98 @@
-let notes = [];
-let tags = [];
-const addNote = document.querySelector("#submit");
-const btnShowForm = document.querySelector(".add-note");
-const form = document.querySelector(".form");
-const overlay = document.querySelector(".overlay");
-const editOverlay = document.querySelector(".edit-overlay");
-const addNoteBtn = document.querySelector(".add-note");
-const addTagBtn = document.querySelector(".add-tag");
-const notesList = document.querySelector(".notes-list");
-const editForm = document.querySelector(".edit-form");
-const noteSearch = document.querySelector(".note-search");
-const noteSearchTag = noteSearch.querySelector('input[type="text"]');
-const tagsMenu = document.querySelector("#tags");
-const notesMenu = document.querySelector("#notes");
+const noteForm = document.querySelector('.note-form');
+const notesList = document.querySelector('.notes-list');
+const searchBox = document.querySelector('.search-box');
+let notes = JSON.parse(localStorage.getItem('notes')) || [];
+let editingNoteId = null;
 
-const loadNotes = () => {
-  const jsonNotes = JSON.parse(window.localStorage.getItem("notes"));
-  jsonNotes ? (notes = [...jsonNotes]) : console.log("Brak notatek");
-};
-loadNotes();
+noteForm.addEventListener('submit', handleFormSubmit);
+searchBox.addEventListener('input', handleSearch);
 
-function returnDate(date) {
-  const day = `${date.getDate()}`.padStart(2, "0");
-  const month = `${date.getMonth() + 1}`.padStart(2, "0");
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-}
-
-const toggleEditForm = () => {
-  editForm.classList.toggle("hidden");
-  editOverlay.classList.toggle("hidden");
-};
-
-const displayNotes = (notes) => {
-  notesList.innerHTML = "";
-
-  if (notes.some((acc) => acc.pin)) {
-    notes.sort((a, b) => b.pin - a.pin);
-  }
-
-  notes.forEach((note) => {
-    const newNote = document.createElement("div");
-    newNote.classList.add("note");
-    newNote.style.backgroundColor = note.color;
-    newNote.innerHTML = `<div class='manage-icons'> 
-      <div>
-      <button class="edit-button"><i class="fa-solid fa-pen-to-square"></i></button> 
-      <button class="delete-button"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </div>
-    <div class='pin-icon'>${note.pin ? "🔴" : "⚪"}</div>
-    <div>
-      <h1>${note.title}</h1> 
-      <div class="note--content">
-        <div class="note--tags">Tagi: ${note.tags} </div>
-        ${note.content}
-    </div>
-    </div>
-    <div class="note--date">Data utworzenia: ${returnDate(
-      new Date(note.dateOfCreation)
-    )}
-   <div>`;
-
-    const notePin = newNote.querySelector(".pin-icon");
-    newNote
-      .querySelector(".delete-button")
-      .addEventListener("click", () => deleteNote(note.id));
-    newNote
-      .querySelector(".edit-button")
-      .addEventListener("click", () => toggleEditMenu(note.id));
-    notePin.addEventListener("click", () => pinNote(note, notePin));
-    notesList.appendChild(newNote);
-  });
-};
-displayNotes(notes);
-
-const pinNote = function (note, notePin) {
-  if (notePin.textContent === "⚪") {
-    const findNote = notes.find((n) => n.id === Number(note.id));
-    findNote.pin = true;
-    localStorage.setItem("notes", JSON.stringify(notes));
-    displayNotes(notes);
-  }
-
-  if (notePin.textContent === "🔴") {
-    const findNote = notes.find((n) => n.id === Number(note.id));
-    findNote.pin = false;
-    localStorage.setItem("notes", JSON.stringify(notes));
-    displayNotes(notes);
-  }
-};
-
-const deleteNote = function (id) {
-  notes = notes.filter((note) => note.id !== Number(id));
-  localStorage.setItem("notes", JSON.stringify(notes));
-  displayNotes(notes);
-};
-
-const loadValuesToForm = (note) => {
-  editForm.querySelector('input[name="title"]').value = note.title;
-  editForm.querySelector("textarea").value = note.content;
-  editForm.querySelector('input[name="tags"]').value = String(note.tags).replaceAll(",", " ");
-  editForm.querySelector(`input[type="color"]`).value = note.color;
-};
-
-const toggleEditMenu = function (id) {
-  toggleEditForm();
-  const singleNote = notes.find((note) => note.id === Number(id));
-  console.log(singleNote);
-  loadValuesToForm(singleNote);
-
-  document.querySelector(".edit-note").addEventListener("click", function () {
-    editNote(singleNote);
-  });
-  displayNotes(notes);
-};
-
-const editNote = function (newNote) {
-  newNote.title = editForm.querySelector('input[name="title"]').value;
-  newNote.content = editForm.querySelector("textarea").value;
-  newNote.tags = editForm.querySelector('input[name="tags"]').value;
-  newNote.color = editForm.querySelector('input[type="color"]').value;
-  localStorage.setItem("notes", JSON.stringify(notes));
-};
-
-addNote.addEventListener("click", (e) => {
-  e.preventDefault();
-  const title = document.querySelector('input[name="title"]').value;
-  const content = document.querySelector("textarea").value;
-  const color = document.querySelector('input[type="color"]').value;
-  const tags = document.querySelector('input[name="tags"]').value.split(" ");
-  const note = new Note(
-    Date.now(),
-    title,
-    content,
-    color,
-    false,
-    tags,
-    Date.now()
-  );
-  notes.push(note);
-  localStorage.setItem("notes", JSON.stringify(notes));
-  toggleForm();
-  displayNotes(notes);
-});
-
-noteSearchTag.addEventListener("input", function (e) {
-  let filteredNotes;
-  setTimeout(() => {
-    if (e.target.value === "") displayNotes(notes);
-    else {
-      filteredNotes = notes.filter((note) =>
-        note.tags.includes(e.target.value)
-      );
-      displayNotes(filteredNotes);
+function handleFormSubmit(e) {
+    e.preventDefault(); 
+    const noteData = {
+        id: editingNoteId || Date.now(),
+        title: document.getElementById('noteTitle').value,
+        content: document.getElementById('noteContent').value,
+        color: document.getElementById('noteColor').value,
+        pinned: document.getElementById('notePinned').checked,
+        tags: document.getElementById('noteTags').value.split(',').map(tag => tag.trim()),
+        creationDate: new Date().toLocaleDateString()
+    };
+    if (editingNoteId) {
+        const noteIndex = notes.findIndex(note => note.id === editingNoteId);
+        notes[noteIndex] = { ...notes[noteIndex], ...noteData };
+    } else {
+        notes.push(noteData);
     }
-  }, 500);
-});
 
-const toggleForm = () => {
-  form.classList.toggle("hidden");
-  overlay.classList.toggle("hidden");
-};
-
-const showNotes = () => {
-  addNoteBtn.classList.remove("hidden");
-  notesList.classList.remove("hidden");
-};
-
-btnShowForm.addEventListener("click", toggleForm);
-overlay.addEventListener("click", toggleForm);
-editOverlay.addEventListener("click", toggleEditForm);
-
-class Note {
-  constructor(id, title, content, color, pin, tags, dateOfCreation) {
-    this.id = id;
-    this.title = title;
-    this.content = content;
-    this.color = color;
-    this.pin = pin;
-    this.tags = tags;
-    this.dateOfCreation = dateOfCreation;
-  }
+    localStorage.setItem('notes', JSON.stringify(notes));
+    displayNotes();
+    noteForm.reset();
+    editingNoteId = null;
 }
+
+function handleSearch(e) {
+    const searchText = e.target.value.toLowerCase();
+    const filteredNotes = notes.filter(note => 
+        note.title.toLowerCase().includes(searchText) || 
+        note.content.toLowerCase().includes(searchText) || 
+        note.tags.some(tag => tag.toLowerCase().includes(searchText))
+    );
+    displayNotes(filteredNotes);
+}
+
+function displayNotes(filteredNotes) {
+let notesToShow = [];
+if(filteredNotes){
+    notesToShow = filteredNotes;
+} else {
+    const sortedNotes = notes.sort((a, b) => {
+        if (a.pinned && !b.pinned) return -1;
+        if (!a.pinned && b.pinned) return 1;
+        return 0;
+    });
+    notesToShow = sortedNotes;
+}
+    notesList.innerHTML = notesToShow.map(note => `
+        <div class="note" style="border-left-color: ${note.color}" data-id="${note.id}" id="${note.id}">
+            <div class="note-header">
+                <h2>${note.title}</h2>
+                <div>
+                    <button onclick="editNote(${note.id})" class="edit-button" aria-label="edit">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button onclick="deleteNote(${note.id})" class="delete-button" aria-label="delete">
+                        <i class="fa fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="note-body">
+                ${note.content}
+            </div>
+            <div class="note-footer">
+                <div>${note.tags.map(tag => `<span class="tag">${tag}</span>`).join(' ')}</div>
+                <div class="note-footer-right">
+                    <span class="date">${note.creationDate}</span>
+                    ${note.pinned ? '<i class="fa fa-thumbtack pinned"></i>' : ''}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+window.editNote = (noteId) => {
+    const noteToEdit = notes.find(note => note.id === noteId);
+    document.getElementById('noteTitle').value = noteToEdit.title;
+    document.getElementById('noteContent').value = noteToEdit.content;
+    document.getElementById('noteColor').value = noteToEdit.color;
+    document.getElementById('notePinned').checked = noteToEdit.pinned;
+    document.getElementById('noteTags').value = noteToEdit.tags.join(', ');
+    editingNoteId = noteId;
+};
+
+window.deleteNote = (noteId) => {
+    notes = notes.filter(note => note.id !== noteId);
+    localStorage.setItem('notes', JSON.stringify(notes));
+    displayNotes();
+};
+
+displayNotes();

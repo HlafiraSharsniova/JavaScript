@@ -1,215 +1,151 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-::-webkit-scrollbar {
-  display: none;
-}
-
-body {
-  margin: 0;
-  box-sizing: border-box;
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f5f2;
 }
 
 .container {
-  max-width: 75vw;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 15px;
-  padding-left: 15px;
+    display: flex;
+    max-width: 100%;
+    padding: 20px;
+    justify-content: space-around;
 }
 
-.header {
-  padding-top: 5px;
-  display: flex;
-	align-items: center;
-	justify-content: space-between;
+.note-creation-section, .notes-display-section {
+    flex: 1;
+    padding: 10px;
+    max-width: 600px;
+    margin: auto;
 }
 
-.header h1 {
-  font-size: 48px;
+.title {
+    font-size: 24px;
+    color: #363636;
 }
 
-.manage-icons {
-  top: 10px;
-  right: 10px;
-  position: absolute;
-  text-align: end;
-  display: flex;
+.input, .textarea, .search-box {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-.pin-icon{
-  top: 10px;
-  position: absolute;
-  cursor: pointer;
+.textarea {
+    min-height: 150px;
 }
 
-.edit-button:hover, .delete-button:hover {
-  cursor: pointer;
+.button {
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: #209cee;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.add-note, .add-tag, .edit-note {
-  box-shadow: inset 0px 1px 0px 0px #abb9c6;
-  background: gray;
-  background-color: #0c355f;
-  border: none;
-  border-radius: 25px;
-  display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
-  font-family: Arial;
-  font-size: 15px;
-  padding: 5px 24px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #06203a;
+.button:hover {
+    filter: brightness(0.85);
 }
 
-.add-note:hover {
-  background: linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
-  background-color: #a9f157;
-}
-.add-note:active {
-  position: relative;
-  top: 1px;
+.picker-and-pin-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
+.color-picker-container,
+.pin-container {
+    display: flex;
+    align-items: center;
 }
 
-.form, .edit-form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
-  max-width: 400px;
-  width: 100%;
-  z-index: 10;
+.color-picker-container label,
+.pin-container label {
+    margin-right: 5px;
+    font-size: 14px;
 }
 
-.form .header, .edit-form .header {
-  padding: 15px 25px;
-  border-bottom: 1px solid rgb(145, 145, 145);
+.color-picker {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    width: 30px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
 }
 
-.form .header h1, .edit-form .header h1{
-  font-size: 20px !important;
+.color-picker::-webkit-color-swatch-wrapper {
+    padding: 0;
 }
 
-.form .content, .edit-form .content {
-  margin: 15px 25px 35px;
-}
-
-.form .content .row, .edit-form .content .row{
-  margin-bottom: 20px;
-}
-
-.form .content label, .edit-form .content label{
-  display: block;
-  font-size: 18px;
-  margin-bottom: 6px;
-}
-
-.content :where(input, textarea){
-  width: 100%;
-  outline: none;
-  font-size: 17px;
-  padding: 0 15px;
-  border-radius: 4px;
-  border: 1px solid #999;
-}
-
-.content :where(input){
-  height: 50px;
-}
-
-.content :where(textarea){
-  height: 100px;
-}
-
-.overlay, .edit-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(3px);
-  z-index: 5;
-}
-
-.hidden {
-  display: none !important;
+.color-picker::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
 }
 
 .notes-list {
-  display: grid;
-	grid-gap: 1rem;
-	grid-template-columns: repeat(
-		auto-fill,
-		minmax(20vw, 1fr)
-	);
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
 }
 
 .note {
-  position: relative;
-  border: 0.1px solid rgb(165, 165, 165);
-  border-radius: 10px;
-	padding: 1rem;
-	height: 30vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-  overflow: scroll;
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px auto; 
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-left: 5px solid transparent;
+    max-width: 600px; 
+    word-wrap: break-word;
+    overflow: hidden;
+    min-width: 250px;
 }
 
-.note h1 {
-  font-size: 25px;
-  margin: 0px;
-  margin: 10px 0px 5px 0px;
-  font-weight: 500;
-  margin-top: 20px;
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.note--content {
-  color: #383737;
-  font-size: 15px;
-  word-wrap: break-word;
+
+.note-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
 }
 
-.note--date {
-  margin-top: 2px;
-  border-top: 0.8px solid black;
-  color: #000;
-  font-size: 13px;
+.note-footer-right .date {
+    margin: 10px;
 }
 
-.note--tags{
-  font-size: 12px;
-  color: #313131;
+.edit-button, .delete-button, .pinned {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #333; 
 }
 
-.note-search {
-	display: flex;
-	align-items: center;
-	background-color: rgb(233, 233, 233);
-	border-radius: 10px;
-	padding: 5px;
-	margin-bottom: 1.5em;
+.edit-button:hover, .delete-button:hover {
+    color: #666;
 }
 
-.note-search input {
-	border: none;
-	background-color: rgb(233, 233, 233);
-	width: 100%;
+.pinned {
+    color: rgba(46, 0, 0, 0.696);
 }
-
-.note-search input:focus {
-	outline: none;
+@media screen and (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
 }
