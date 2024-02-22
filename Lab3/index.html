@@ -4,56 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drumkit</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="drums">
-            <div class="boom" data-d="a">
-                <kbd>Do</kbd>
-                <span>Boom</span>
-            </div>
-            <div class="clap" data-d="s">
-                <kbd>Re</kbd>
-                <span>Clap</span>
-            </div>
-            <div class="hihat" data-d="d">
-                <kbd>Mi</kbd>
-                <span>Hihat</span>
-            </div>
-            <div class="kick" data-d="f">
-                <kbd>Fa</kbd>
-                <span>Kick</span>
-            </div>
-            <div class="openhat" data-d="g">
-                <kbd>So</kbd>
-                <span>Open-hat</span>
-            </div>
-            <div class="ride" data-d="h">
-                <kbd>Lia</kbd>
-                <span>Ride</span>
-            </div>
-            <div class="snare" data-d="j">
-                <kbd>Si</kbd>
-                <span>Snare</span>
-            </div>
-            <div class="tink" data-d="k">
-                <kbd>Do2</kbd>
-                <span>Tink</span>
-            </div>
-            <div class="tom" data-d="l">
-                <kbd>Re2</kbd>
-                <span>Tom</span>
-            </div>
+    <div class="keys">
+        <div data-key="65" class="key">
+          <kbd>A</kbd>
+          <span class="sound">boom</span>
+        </div>
+        <div data-key="83" class="key">
+          <kbd>S</kbd>
+          <span class="sound">clap</span>
+        </div>
+        <div data-key="68" class="key">
+          <kbd>D</kbd>
+          <span class="sound">hihat</span>
+        </div>
+      </div>
+      <div class="keys">
+        <div data-key="70" class="key">
+          <kbd>F</kbd>
+          <span class="sound">kick</span>
+        </div>
+        <div data-key="71" class="key">
+          <kbd>G</kbd>
+          <span class="sound">openhat</span>
+        </div>
+        <div data-key="72" class="key">
+          <kbd>H</kbd>
+          <span class="sound">ride</span>
+        </div>
+      </div>
+      <div class="keys">
+        <div data-key="74" class="key">
+          <kbd>J</kbd>
+          <span class="sound">snare</span>
+        </div>
+        <div data-key="75" class="key">
+          <kbd>K</kbd>
+          <span class="sound">tink</span>
+        </div>
+        <div data-key="76" class="key">
+          <kbd>L</kbd>
+          <span class="sound">tom</span>
+        </div>
+      </div>
+
+    <audio data-key="65" src="./sounds/boom.wav"></audio>
+    <audio data-key="83" src="./sounds/clap.wav"></audio>
+    <audio data-key="68" src="./sounds/hihat.wav"></audio>
+    <audio data-key="70" src="./sounds/kick.wav"></audio>
+    <audio data-key="71" src="./sounds/openhat.wav"></audio>
+    <audio data-key="72" src="./sounds/ride.wav"></audio>
+    <audio data-key="74" src="./sounds/snare.wav"></audio>
+    <audio data-key="75" src="./sounds/tink.wav"></audio>
+    <audio data-key="76" src="./sounds/tom.wav"></audio>
+    
+    <div class="buttons">
+        <button id="recordChannel1">Nagraj: Kanał 1</button>
+        <button id="stopChannel1">Stop: Kanał 1</button>
+        <button id="playChannel1">Odtwórz: Kanał 1</button>
+        <button id="recordChannel2">Nagraj: Kanał 2</button>
+        <button id="stopChannel2">Stop: Kanał 2</button>
+        <button id="playChannel2">Odtwórz: Kanał 2</button>
+        <button id="recordChannel3">Nagraj: Kanał 3</button>
+        <button id="stopChannel3">Stop: Kanał 3</button>
+        <button id="playChannel3">Odtwórz: Kanał 3</button>
+        <button id="recordChannel4">Nagraj: Kanał 4</button>
+        <button id="stopChannel4">Stop: Kanał 4</button>
+        <button id="playChannel4">Odtwórz: Kanał 4</button>
+        <button id="playAllChannels">Odtwórz wszystkie</button>
     </div>
-    <audio data-a="a" src="./sounds/boom.wav"></audio>
-    <audio data-a="s" src="./sounds/clap.wav"></audio>
-    <audio data-a="d" src="./sounds/hihat.wav"></audio>
-    <audio data-a="f" src="./sounds/kick.wav"></audio>
-    <audio data-a="g" src="./sounds/openhat.wav"></audio>
-    <audio data-a="h" src="./sounds/ride.wav"></audio>
-    <audio data-a="j" src="./sounds/snare.wav"></audio>
-    <audio data-a="k" src="./sounds/tink.wav"></audio>
-    <audio data-a="l" src="./sounds/tom.wav"></audio>
     
     <script src="main.js"></script>
 </body> 

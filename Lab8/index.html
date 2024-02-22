@@ -10,11 +10,16 @@
 
 <body>
     <div class="search-container">
-        <input type="text" id="city" value="Kraków">
+        <input type="text" id="city">
         <button id="search-btn">Szukaj</button>
         <button id="city-add">Dodaj</button>
+        <select id="city-list">
+            <option value="" disabled selected>Wybierz miasto</option>
+        </select>
+        <button id="city-remove">Usuń</button>
     </div>
     <div id="result"></div>
+    
 
     <script src="main.js"></script>
 </body>

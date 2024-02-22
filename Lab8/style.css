@@ -41,6 +41,24 @@ body {
     text-shadow: 2px 2px 3px #363636;
 
 }
+#city-list {
+    width: 100px;
+    padding: 10px;
+    margin-left: 10px;
+    background: none;
+    border: 1px solid #363636;
+    color: #141414;
+    text-shadow: 2px 2px 3px #363636;
+}
+#city-remove {
+    width: 100px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: red;
+    border: 1px solid #363636;
+    color: #141414;
+    text-shadow: 2px 2px 3px #363636;
+}
 
 #search-btn:hover,
 #city-add:hover {

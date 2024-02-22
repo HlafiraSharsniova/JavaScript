@@ -41,7 +41,7 @@ function moveBall() {
 
 function updateBallPosition() {
     if (gameStart) {
-// odjecie tych wartosci zapobiega wyjściu piłki za granicy kontenera
+
         let maxX = gameContainer.offsetWidth - ball.offsetWidth; //maksymalna odległość, na jaką piłka może się przesunąć
         let maxY = gameContainer.offsetHeight - ball.offsetHeight;
 
@@ -66,20 +66,19 @@ function spawnHole() {
     } while (isTooCloseToBall(x, y));
 
     hole.style.left = x + 'px';//aktualizuje styl CSS
-    hole.style.top = y + 'px';//konwertuje liczby na stringi, dodając pikseli,
+    hole.style.top = y + 'px';//konwertuje liczby na stringi
 }
 
 function isTooCloseToBall(x, y) {
     const minDistance = 50;
-    let ballX = parseInt(ball.style.left, 10);//pobieram aktualną pozycję piłki
+    let ballX = parseInt(ball.style.left, 10);
     let ballY = parseInt(ball.style.top, 10);
 
     return Math.abs(ballX - x) < minDistance && Math.abs(ballY - y) < minDistance;
-    //obliczam bezwzględną różnicę między współrzędnymi `x` i `y` dziury a współrzędnymi piłki
 }
 
 function checkCollision() {
-    let ballRect = ball.getBoundingClientRect();//pobiera prostokątne granicy piłki i dziury
+    let ballRect = ball.getBoundingClientRect();
     let holeRect = hole.getBoundingClientRect();
     if (ballRect.left < holeRect.left + holeRect.width &&//czy krawędzie prostokąta piłki znajdują się wewnątrz prostokąta dziury
         ballRect.left + ballRect.width > holeRect.left &&
